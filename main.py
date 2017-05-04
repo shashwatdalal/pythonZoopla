@@ -7,14 +7,19 @@ search = zoopla.search_property_listings(params = {
     'minimum_beds'  : 4,
     'maximum_bed'   : 5,
     'listing_staus' : 'rent',
-    'minimum_price' : 700,
-    'maximum_price' : 800,  #per week in GBP
-    'furnished'     : 'unfurnished',
-    'latitude'      : '51.488',
-    'longitude'     : '-0.1930',
+    'minimum_price' : 160*5,
+    'maximum_price' : 180*5,  #per week in GBP
+    #'furnished'     : 'furnished',
+    'latitude'      : '51.498873',
+    'longitude'     : '-0.175972',
     'radius'        : 1.5,
     'page_size'     : 100
     })
+
+for result in search:
+        print(result.price)
+        print(result.description)
+        print(result.details_url)
 
 gmap = gmplot.GoogleMapPlotter(51.4820096, -0.1971278, 14)
 gmap.scatter([result.latitude for result in search],
