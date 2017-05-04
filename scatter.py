@@ -2,7 +2,6 @@ from zoopla import Zoopla
 import matplotlib.pyplot as plt
 from geopy.distance import vincenty
 import matplotlib.patches as mpatches
-import 
 
 zoopla = Zoopla(api_key='ubtyux3etedzj6td2af7zy6g', debug=False, wait_on_rate_limit=True)
 
