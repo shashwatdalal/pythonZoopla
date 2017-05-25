@@ -4,10 +4,12 @@ from geopy.distance import vincenty
 import matplotlib.patches as mpatches
 
 zoopla = Zoopla(api_key='ubtyux3etedzj6td2af7zy6g', debug=False, wait_on_rate_limit=True)
-furnished = ['furnished','unfurnished','part-furnished']
+housetTypes = ['furnished','unfurnished','part-furnished']
 colors = ['g','y','r']
+imperial = (51.498873,-0.175972)
 
-for (houseType,color) in zip(furnished,colors):
+
+for (houseType,color) in zip(housetypes,colors):
     search = zoopla.search_property_listings(params = {
         'minimum_beds'  : 4,
         'maximum_bed'   : 5,
@@ -17,16 +19,13 @@ for (houseType,color) in zip(furnished,colors):
         'furnished'     : houseType,
         'latitude'      : '51.498873',
         'longitude'     : '-0.175972',
-        'radius'        : 1.5,
+        'radius'        : 1,
         'page_size'     : 100
         })
-
-    imperial = (51.498873,-0.175972)
-
-    distanceFurnished = [vincenty(imperial,(result.latitude,result.longitude)).kilometers for result in search]
-    priceFurnished = [result.price for result in search]
-    urls = [result.street_name for result in search]
-    plt.scatter(distanceFurnished,priceFurnished,c = color,marker = '.')
+   
+    distance = [vincenty(imperial,(result.latitude,result.longitude)).kilometers for result in search]
+    price = [result.price for result in search]
+    plt.scatter(distance,price,c = color,marker = '.')
 
 red_patch = mpatches.Patch(color='red', label='Furnished')
 yellow_patch = mpatches.Patch(color='yellow', label='Part-Furnished')
